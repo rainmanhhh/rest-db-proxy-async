@@ -24,4 +24,11 @@
       <version>1.0.2</version>
     </dependency>
   </dependencies>
+
+  <repositories>
+    <repository>
+      <id>jitpack</id>
+      <url>https://jitpack.io</url>
+    </repository>
+  </repositories>
 </project>
