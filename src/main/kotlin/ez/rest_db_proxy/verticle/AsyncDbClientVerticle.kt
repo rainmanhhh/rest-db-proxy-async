@@ -1,14 +1,15 @@
 package ez.rest_db_proxy.verticle
 
-import ez.rest_db_proxy.config.AsyncDbConfig
 import ez.rest_db_proxy.db.DbClientVerticle
+import ez.vertx.core.config.ConfigVerticle
 import io.vertx.sqlclient.Pool
 import io.vertx.sqlclient.SqlClient
 
-class AsyncDbClientVerticle : DbClientVerticle<AsyncDbConfig>() {
-  override val key: String = AsyncDbConfig.key
-  override var configValue = AsyncDbConfig()
+class AsyncDbClientVerticle : DbClientVerticle() {
   override suspend fun createDbClient(): SqlClient {
-    return Pool.pool(vertx, configValue.connect, configValue.pool)
+    val db: AsyncDbConfig by ConfigVerticle
+    return Pool.pool(vertx, db.connect, db.pool)
   }
+
+  override fun path(): String = "_asyncDb"
 }
